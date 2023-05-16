@@ -1,10 +1,10 @@
-all: Game.o Main.o output
+all: Game.o main.o output
 
-output: Main.o
-	clang++ -std=c++17 Main.o Game.o -o output -lSDL2
+output: main.o
+	clang++ -std=c++17 main.o Game.o -o output -lSDL2
 
-Main.o: Main.cpp Game.o
-	clang++ -std=c++17 -c Main.cpp
+main.o: main.cpp Game.o
+	clang++ -std=c++17 -c main.cpp
 
 Game.o: Game.cpp Game.h
 	clang++ -std=c++17 -c Game.cpp
