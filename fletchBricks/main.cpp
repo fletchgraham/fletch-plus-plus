@@ -1,7 +1,13 @@
-#include <iostream>
-#include "SDL2/SDL.h"
+#include "Game.h"
 
-int main()
+int main(int argc, char** argv)
 {
-    std::cout << "Game Over" << std::endl;
+	Game game;
+	bool success = game.Initialize();
+	if (success)
+	{
+		game.RunLoop();
+	}
+	game.Shutdown();
+	return 0;
 }
