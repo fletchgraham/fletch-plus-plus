@@ -4,7 +4,7 @@ output: main.o
 main.o: main.cpp Game.o
 	clang++ -std=c++17 -c main.cpp
 
-Game.o: Game.cpp Game.h maths.cpp
+Game.o: Game.cpp Game.h maths.cpp ball.cpp paddle.cpp
 	clang++ -std=c++17 -c Game.cpp
 
 clean:
