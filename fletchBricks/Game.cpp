@@ -23,7 +23,7 @@ bool Game::Initialize()
 	}
     
     windowWidth = 480;
-    windowHeight = 640;
+    windowHeight = 480;
 	
 	// Create an SDL Window
 	mWindow = SDL_CreateWindow(

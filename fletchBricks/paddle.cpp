@@ -13,7 +13,7 @@ public:
     float leftLimit;
     float rightLimit;
 
-    float speed = 500.f;
+    float speed = 400.f;
     float tipFactor = 200.f;
 
     void Update(float deltaTime)
@@ -23,7 +23,6 @@ public:
             pos.x += direction * speed * deltaTime;
             ClampX();
         }
-
     }
 
     void HandleBall(Ball& ball)
@@ -40,7 +39,6 @@ public:
             ball.vel.y *= -1.0f;
             ball.vel.x += alignmentX * tipFactor;
         }
-
     }
 
 private:
