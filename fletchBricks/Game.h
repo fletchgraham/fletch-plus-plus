@@ -2,6 +2,7 @@
 #pragma once
 #include "SDL2/SDL.h"
 #include "ball.cpp"
+#include "paddle.cpp"
 
 
 class Game
@@ -24,11 +25,6 @@ private:
 	Uint32 mTicksCount;
 	bool mIsRunning;
 	
-	// Direction of paddle
-	int mPaddleDir;
-	// Position of paddle
-	Vec2 mPaddlePos;
-	// Position of ball
-
+	Paddle paddle;
 	Ball ball;
 };
