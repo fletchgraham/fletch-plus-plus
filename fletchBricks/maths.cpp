@@ -1,11 +1,23 @@
-class Vec2
+struct Vec2
 {
-public:
     float x;
     float y;
-    void Add(Vec2 other)
+
+    Vec2(float x, float y) : x(x), y(y) { }
+    Vec2() : x(0), y(0) { }
+
+    Vec2 operator+ (const Vec2& other) const
     {
-        x = x + other.x;
-        y = y + other.y;
+        return Vec2(x + other.x, y + other.y);
+    }
+
+    Vec2 operator* (const Vec2& other) const
+    {
+        return Vec2(x * other.x, y * other.y);
+    }
+
+    Vec2 operator* (const float other) const
+    {
+        return Vec2(x * other, y * other);
     }
 };

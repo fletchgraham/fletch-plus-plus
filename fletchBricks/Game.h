@@ -1,7 +1,7 @@
 
 #pragma once
 #include "SDL2/SDL.h"
-#include "maths.cpp"
+#include "ball.cpp"
 
 
 class Game
@@ -29,7 +29,6 @@ private:
 	// Position of paddle
 	Vec2 mPaddlePos;
 	// Position of ball
-	Vec2 mBallPos;
-	// Velocity of ball
-	Vec2 mBallVel;
+
+	Ball ball;
 };
