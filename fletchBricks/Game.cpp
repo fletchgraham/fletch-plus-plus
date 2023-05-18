@@ -133,7 +133,7 @@ void Game::UpdateGame()
 	paddle.Update(deltaTime);
 	ball.Update(deltaTime);
 
-	paddle.handleBall(ball);
+	paddle.HandleBall(ball);
 
 	// Did the ball go off the screen? (if so, end game)
 	if (ball.pos.y >= windowHeight)

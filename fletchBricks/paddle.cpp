@@ -13,30 +13,41 @@ public:
     float leftLimit;
     float rightLimit;
 
+    float speed = 500.f;
+    float tipFactor = 200.f;
+
     void Update(float deltaTime)
     {
         if (direction != 0)
         {
-            pos.x += direction * 300.0f * deltaTime;
+            pos.x += direction * speed * deltaTime;
             ClampX();
         }
 
     }
 
-    void handleBall(Ball& ball)
+    void HandleBall(Ball& ball)
     {
-        if (isBallCollide(ball))
+        float alignmentX = AlignmentX(ball);
+
+        if (abs(alignmentX) > 1)
+        {
+            return;
+        }
+
+        else if (isAlignedY(ball))
         {
             ball.vel.y *= -1.0f;
+            ball.vel.x += alignmentX * tipFactor;
         }
+
     }
 
-    bool isBallCollide(Ball& ball)
-    {
-        float alignment = Alignment(ball);
+private:
 
+    bool isAlignedY(Ball& ball)
+    {
         return (
-            abs(alignment) <= 1 &&
             // We are in the correct y-position
             ball.pos.y <= pos.y + 5.0f && ball.pos.y >= pos.y - 5.0f &&
             // The ball is moving down
@@ -44,13 +55,12 @@ public:
         );
     }
 
-    float Alignment(Ball& ball)
+    float AlignmentX(Ball& ball)
     // -1 to 1 along the width, 0 is centered
     {
-        return (pos.x - ball.pos.x) / (width / 2);
+        return (ball.pos.x - pos.x) / (width / 2);
     }
 
-private:
     void ClampX()
     {
         float leftExtremePos = leftLimit + width/2;
