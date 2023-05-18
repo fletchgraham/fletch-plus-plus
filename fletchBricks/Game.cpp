@@ -56,6 +56,8 @@ bool Game::Initialize()
 	//
 	paddle.pos.x = windowWidth / 2.0f;
 	paddle.pos.y = windowHeight - 30.0f;
+	paddle.leftLimit = thickness;
+	paddle.rightLimit = windowWidth - thickness;
 
 	ball.pos.x = windowWidth/2.0f;
 	ball.pos.y = windowHeight/2.0f;
@@ -128,21 +130,7 @@ void Game::UpdateGame()
 	// Update tick counts (for next frame)
 	mTicksCount = SDL_GetTicks();
 	
-	// Update paddle position based on direction
-	if (paddle.direction != 0)
-	{
-		paddle.Update(deltaTime);
-		// Make sure paddle doesn't move off screen!
-		if (paddle.pos.x < (paddleW/2.0f + thickness))
-		{
-			paddle.pos.x = paddleW/2.0f + thickness;
-		}
-		else if (paddle.pos.x > (windowWidth - paddleW/2.0f - thickness))
-		{
-			paddle.pos.x = windowWidth - paddleW/2.0f - thickness;
-		}
-	}
-	
+	paddle.Update(deltaTime);
 	ball.Update(deltaTime);
 	
 	// Bounce if needed

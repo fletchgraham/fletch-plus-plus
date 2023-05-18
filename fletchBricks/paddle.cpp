@@ -7,11 +7,35 @@ public:
 
     Vec2 pos;
     int direction;
+
     float width = 100.0f;
+
+    float leftLimit;
+    float rightLimit;
 
     void Update(float deltaTime)
     {
-        pos.x += direction * 300.0f * deltaTime;
+        if (direction != 0)
+        {
+            pos.x += direction * 300.0f * deltaTime;
+            ClampX();
+        }
+
+    }
+
+    void ClampX()
+    {
+        float leftExtremePos = leftLimit + width/2;
+        float rightExtremePos = rightLimit - width/2;
+
+        if (pos.x < leftExtremePos) 
+        {
+            pos.x = leftExtremePos;
+        }
+        else if (pos.x > rightExtremePos) 
+        {
+            pos.x = rightExtremePos;
+        }
     }
 
     bool isBallCollide(Ball ball)
