@@ -1,12 +1,8 @@
 
 #pragma once
 #include "SDL2/SDL.h"
+#include "maths.cpp"
 
-struct Vec2
-{
-    float x;
-    float y;
-};
 
 class Game
 {
