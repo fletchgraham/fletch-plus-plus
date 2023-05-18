@@ -23,7 +23,15 @@ public:
 
     }
 
-    bool isBallCollide(Ball ball)
+    void handleBall(Ball& ball)
+    {
+        if (isBallCollide(ball))
+        {
+            ball.vel.y *= -1.0f;
+        }
+    }
+
+    bool isBallCollide(Ball& ball)
     {
         float alignment = Alignment(ball);
 
@@ -36,7 +44,7 @@ public:
         );
     }
 
-    float Alignment(Ball ball)
+    float Alignment(Ball& ball)
     // -1 to 1 along the width, 0 is centered
     {
         return (pos.x - ball.pos.x) / (width / 2);

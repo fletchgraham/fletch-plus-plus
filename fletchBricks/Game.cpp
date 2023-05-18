@@ -132,14 +132,11 @@ void Game::UpdateGame()
 	
 	paddle.Update(deltaTime);
 	ball.Update(deltaTime);
-	
-	// Bounce if needed
-	if (paddle.isBallCollide(ball))
-	{
-		ball.vel.y *= -1.0f;
-	}
+
+	paddle.handleBall(ball);
+
 	// Did the ball go off the screen? (if so, end game)
-	else if (ball.pos.y >= windowHeight)
+	if (ball.pos.y >= windowHeight)
 	{
 		mIsRunning = false;
 	}
