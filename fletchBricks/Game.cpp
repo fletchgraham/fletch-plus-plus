@@ -146,17 +146,7 @@ void Game::UpdateGame()
 	ball.Update(deltaTime);
 	
 	// Bounce if needed
-	// Did we intersect with the paddle?
-	float diff = paddle.pos.x - ball.pos.x;
-	// Take absolute value of difference
-	diff = (diff > 0.0f) ? diff : -diff;
-	if (
-		// Our x-difference is small enough
-		diff <= paddleW / 2.0f &&
-		// We are in the correct y-position
-		ball.pos.y <= windowHeight - 25.0f && ball.pos.y >= windowHeight - 30.0f &&
-		// The ball is moving down
-		ball.vel.y > 0.0f)
+	if (paddle.isBallCollide(ball))
 	{
 		ball.vel.y *= -1.0f;
 	}
