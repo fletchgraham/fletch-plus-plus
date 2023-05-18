@@ -25,19 +25,21 @@ public:
 
     bool isBallCollide(Ball ball)
     {
-        float diff = pos.x - ball.pos.x;
-
-        // Take absolute value of difference
-        diff = (diff > 0.0f) ? diff : -diff;
+        float alignment = Alignment(ball);
 
         return (
-            // Our x-difference is small enough
-            diff <= width / 2.0f &&
+            abs(alignment) <= 1 &&
             // We are in the correct y-position
             ball.pos.y <= pos.y + 5.0f && ball.pos.y >= pos.y - 5.0f &&
             // The ball is moving down
             ball.vel.y > 0.0f
         );
+    }
+
+    float Alignment(Ball ball)
+    // -1 to 1 along the width, 0 is centered
+    {
+        return (pos.x - ball.pos.x) / (width / 2);
     }
 
 private:
