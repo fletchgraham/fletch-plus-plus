@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Game.h"
 
 const int thickness = 15;
@@ -152,6 +153,10 @@ void Game::UpdateGame()
 
 	paddle.HandleBall(ball);
 
+	for (Brick &b : bricks) {
+		b.HandleBall(ball);
+	}
+
 	// Did the ball go off the screen? (if so, end game)
 	if (ball.pos.y >= windowHeight)
 	{
@@ -234,8 +239,12 @@ void Game::GenerateOutput()
 	SDL_RenderFillRect(mRenderer, &ballRect);
 
 	// Draw bricks
-	for (Brick b : bricks)
+	for (Brick &b : bricks)
 	{
+		if (b.broken)
+		{
+			SDL_SetRenderDrawColor(mRenderer, 255, 0, 0, 255);
+		}
 		SDL_Rect brickRect{
 			static_cast<int>(b.pos.x - b.w/2),
 			static_cast<int>(b.pos.y - b.h/2),
@@ -243,6 +252,7 @@ void Game::GenerateOutput()
 			static_cast<int>(b.h)
 		};
 		SDL_RenderFillRect(mRenderer, &brickRect);
+		SDL_SetRenderDrawColor(mRenderer, 255, 255, 255, 255);
 	}
 	
 	// Swap front buffer and back buffer

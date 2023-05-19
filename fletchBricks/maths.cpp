@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 
 struct Vec2
 {
@@ -13,6 +14,16 @@ struct Vec2
         return Vec2(x + other.x, y + other.y);
     }
 
+    Vec2 operator+ (const float& other) const
+    {
+        return Vec2(x + other, y + other);
+    }
+
+    Vec2 operator- (const float& other) const
+    {
+        return Vec2(x - other, y - other);
+    }
+
     Vec2 operator* (const Vec2& other) const
     {
         return Vec2(x * other.x, y * other.y);
@@ -21,5 +32,26 @@ struct Vec2
     Vec2 operator* (const float other) const
     {
         return Vec2(x * other, y * other);
+    }
+};
+
+struct BBox
+{
+    BBox(Vec2 min, Vec2 max) : min(min), max(max) { }
+    Vec2 max;
+    Vec2 min;
+
+    bool Intersects(BBox &other)
+    {
+        bool intersects = (
+            other.min.x < min.x && min.x < other.max.x &&
+            other.min.y < min.y && min.y < other.max.y ||
+            other.min.x < max.x && max.x < other.max.x &&
+            other.min.y < max.y && max.y < other.max.y
+        );
+        if (intersects) {
+            std::cout << "Intersection Detected!" << std::endl;
+        }
+        return intersects;
     }
 };
