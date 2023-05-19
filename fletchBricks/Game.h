@@ -3,6 +3,7 @@
 #include "SDL2/SDL.h"
 #include "ball.cpp"
 #include "paddle.cpp"
+#include "brick.cpp"
 
 
 class Game
@@ -27,4 +28,5 @@ private:
 	
 	Paddle paddle;
 	Ball ball;
+	Brick bricks[5];
 };

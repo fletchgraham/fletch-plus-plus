@@ -54,6 +54,23 @@ bool Game::Initialize()
 		return false;
 	}
 	//
+
+	float brickColumnGap = 10.0f;
+
+	int numBricks = 5;
+	float courtWidth = windowWidth - thickness * 2;
+	float brickWidth = (courtWidth - brickColumnGap * (numBricks + 1)) / numBricks;
+	float firstBrickPos = thickness + brickColumnGap + brickWidth / 2;
+
+	int brickCounter = 0;
+	for (Brick &b : bricks) {
+		b.pos.x = firstBrickPos + brickCounter * (brickWidth + brickColumnGap);
+		b.pos.y = 200.0f;
+		b.w = brickWidth;
+		b.h = 50.0f;
+		brickCounter += 1;
+	}
+
 	paddle.pos.x = windowWidth / 2.0f;
 	paddle.pos.y = windowHeight - 30.0f;
 	paddle.leftLimit = thickness;
@@ -215,6 +232,18 @@ void Game::GenerateOutput()
 		thickness
 	};
 	SDL_RenderFillRect(mRenderer, &ballRect);
+
+	// Draw bricks
+	for (Brick b : bricks)
+	{
+		SDL_Rect brickRect{
+			static_cast<int>(b.pos.x - b.w/2),
+			static_cast<int>(b.pos.y - b.h/2),
+			static_cast<int>(b.w),
+			static_cast<int>(b.h)
+		};
+		SDL_RenderFillRect(mRenderer, &brickRect);
+	}
 	
 	// Swap front buffer and back buffer
 	SDL_RenderPresent(mRenderer);
