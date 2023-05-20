@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Game.h"
 
 const int thickness = 15;
@@ -116,17 +115,9 @@ void Game::ProcessInput()
 	{
 		mIsRunning = false;
 	}
-	
-	// Update paddle direction based on W/S keys
-	paddle.direction = 0;
-	if (state[SDL_SCANCODE_A])
-	{
-		paddle.direction -= 1;
-	}
-	if (state[SDL_SCANCODE_D])
-	{
-		paddle.direction += 1;
-	}
+
+	SDL_GetMouseState(&mouseX, &mouseY);
+
 }
 
 void Game::UpdateGame()
@@ -148,7 +139,7 @@ void Game::UpdateGame()
 	// Update tick counts (for next frame)
 	mTicksCount = SDL_GetTicks();
 	
-	paddle.Update(deltaTime);
+	paddle.Update(mouseX);
 	ball.Update(deltaTime);
 
 	paddle.HandleBall(ball);

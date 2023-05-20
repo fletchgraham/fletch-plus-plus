@@ -6,23 +6,18 @@ public:
     Paddle(){};
 
     Vec2 pos;
-    int direction;
-
-    float width = 100.0f;
-
     float leftLimit;
     float rightLimit;
+
+    float width = 100.0f;
 
     float speed = 400.f;
     float tipFactor = 200.f;
 
-    void Update(float deltaTime)
+    void Update(float xPos)
     {
-        if (direction != 0)
-        {
-            pos.x += direction * speed * deltaTime;
-            ClampX();
-        }
+        pos.x = xPos;
+        ClampX();
     }
 
     void HandleBall(Ball& ball)

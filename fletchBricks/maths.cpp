@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 
 struct Vec2
 {
@@ -43,15 +42,11 @@ struct BBox
 
     bool Intersects(BBox &other)
     {
-        bool intersects = (
+        return (
             other.min.x < min.x && min.x < other.max.x &&
             other.min.y < min.y && min.y < other.max.y ||
             other.min.x < max.x && max.x < other.max.x &&
             other.min.y < max.y && max.y < other.max.y
         );
-        if (intersects) {
-            std::cout << "Intersection Detected!" << std::endl;
-        }
-        return intersects;
     }
 };

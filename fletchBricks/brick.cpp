@@ -1,4 +1,3 @@
-#include <iostream>
 #include "maths.cpp"
 #include "ball.cpp"
 
@@ -23,7 +22,6 @@ public:
         BBox selfBBox = getBBox();
         bool collision = ballBBox.Intersects(selfBBox);
         if (collision) {
-            std::cout << "Collision Detected!" << std::endl;
             broken = true;
         }
     }
