@@ -35,8 +35,6 @@ public:
             ball.BounceHorizontal();
             broken = true;
         }
-
-
     }
 
     BBox GetHitBoxTop(){

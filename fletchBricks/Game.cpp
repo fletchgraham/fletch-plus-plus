@@ -235,18 +235,17 @@ void Game::GenerateOutput()
 	// Draw bricks
 	for (Brick &b : bricks)
 	{
-		if (b.broken)
+		if (!b.broken)
 		{
-			SDL_SetRenderDrawColor(mRenderer, 255, 0, 0, 255);
+			SDL_Rect brickRect{
+				static_cast<int>(b.pos.x - b.w/2),
+				static_cast<int>(b.pos.y - b.h/2),
+				static_cast<int>(b.w),
+				static_cast<int>(b.h)
+			};
+			SDL_RenderFillRect(mRenderer, &brickRect);
+			SDL_SetRenderDrawColor(mRenderer, 255, 255, 255, 255);
 		}
-		SDL_Rect brickRect{
-			static_cast<int>(b.pos.x - b.w/2),
-			static_cast<int>(b.pos.y - b.h/2),
-			static_cast<int>(b.w),
-			static_cast<int>(b.h)
-		};
-		SDL_RenderFillRect(mRenderer, &brickRect);
-		SDL_SetRenderDrawColor(mRenderer, 255, 255, 255, 255);
 	}
 	
 	// Swap front buffer and back buffer
