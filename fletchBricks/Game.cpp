@@ -55,6 +55,18 @@ bool Game::Initialize()
 	}
 	//
 
+
+	paddle.pos.x = windowWidth / 2.0f;
+	paddle.pos.y = windowHeight - 30.0f;
+	paddle.leftLimit = thickness;
+	paddle.rightLimit = windowWidth - thickness;
+
+	ball.radius = thickness / 2;
+	ball.pos.x = windowWidth/2.0f;
+	ball.pos.y = windowHeight/2.0f;
+	ball.vel.x = 235.0f;
+	ball.vel.y = 200.0f;
+
 	float brickColumnGap = 10.0f;
 
 	int numBricks = 5;
@@ -68,19 +80,9 @@ bool Game::Initialize()
 		b.pos.y = 200.0f;
 		b.w = brickWidth;
 		b.h = 50.0f;
+		b.hitRadius = ball.radius;
 		brickCounter += 1;
 	}
-
-	paddle.pos.x = windowWidth / 2.0f;
-	paddle.pos.y = windowHeight - 30.0f;
-	paddle.leftLimit = thickness;
-	paddle.rightLimit = windowWidth - thickness;
-
-	ball.radius = thickness / 2;
-	ball.pos.x = windowWidth/2.0f;
-	ball.pos.y = windowHeight/2.0f;
-	ball.vel.x = 235.0f;
-	ball.vel.y = 200.0f;
 
 	return true;
 }

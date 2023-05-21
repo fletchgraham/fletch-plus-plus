@@ -37,6 +37,8 @@ struct Vec2
 struct BBox
 {
     BBox(Vec2 min, Vec2 max) : min(min), max(max) { }
+    BBox(float minX, float minY, float maxX, float maxY)
+    : min(minX, minY), max(maxX, maxY) { }
     Vec2 max;
     Vec2 min;
 
@@ -45,51 +47,13 @@ struct BBox
         return dimensions;
     }
 
-    bool isPossible() {
+    bool Contains(Vec2 point) {
         return (
-            Dimensions().x >= 0 &&
-            Dimensions().y >= 0
+            point.x > min.x &&
+            point.x < max.x &&
+            point.y > min.y &&
+            point.y < max.y
         );
-    }
-
-    bool IntersectHorizontal(BBox &other) {
-
-        BBox intersection = IntersectionBox(other);
-
-        if (!intersection.isPossible()) {
-            return false;
-        }
-
-        return (
-            intersection.Dimensions().y >=
-            intersection.Dimensions().x
-        );
-    }
-
-    bool IntersectVertical(BBox &other) {
-
-        BBox intersection = IntersectionBox(other);
-
-        if (!intersection.isPossible()) {
-            return false;
-        }
-
-        return (
-            intersection.Dimensions().x >=
-            intersection.Dimensions().y
-        );
-    }
-
-    BBox IntersectionBox(BBox &other) {
-        Vec2 newMin = Vec2(
-            std::max(min.x, other.min.x),
-            std::max(min.y, other.min.y)
-        );
-        Vec2 newMax = Vec2(
-            std::min(max.x, other.max.x),
-            std::min(max.y, other.max.y)
-        );
-        return BBox(newMin, newMax);
     }
 
     bool Intersects(BBox &other)

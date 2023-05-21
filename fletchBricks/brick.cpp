@@ -11,6 +11,7 @@ public:
     float w;
     float h;
     bool broken = false;
+    float hitRadius;
 
     void HandleBall(Ball &ball)
     {
@@ -18,17 +19,61 @@ public:
             return;
         }
         
-        BBox ballBBox = ball.getBBox();
-        BBox selfBBox = getBBox();
-
-        if (selfBBox.IntersectVertical(ballBBox)) {
+        if (GetHitBoxTop().Contains(ball.pos) && ball.vel.y <= 0) {
             ball.BounceVertical();
             broken = true;
         }
-        else if (selfBBox.IntersectHorizontal(ballBBox)) {
+        else if (GetHitBoxBottom().Contains(ball.pos) && ball.vel.y >= 0) {
+            ball.BounceVertical();
+            broken = true;
+        }
+        else if (GetHitBoxLeft().Contains(ball.pos) && ball.vel.x >= 0) {
             ball.BounceHorizontal();
             broken = true;
         }
+        else if (GetHitBoxRight().Contains(ball.pos) && ball.vel.y <= 0) {
+            ball.BounceHorizontal();
+            broken = true;
+        }
+
+
+    }
+
+    BBox GetHitBoxTop(){
+        BBox selfBox = getBBox();
+        return BBox(
+            selfBox.min.x - hitRadius,
+            selfBox.max.y - hitRadius,
+            selfBox.max.x + hitRadius,
+            selfBox.max.y + hitRadius
+        );
+    }
+    BBox GetHitBoxBottom(){
+        BBox selfBox = getBBox();
+        return BBox(
+            selfBox.min.x - hitRadius,
+            selfBox.min.y - hitRadius,
+            selfBox.max.x + hitRadius,
+            selfBox.min.y + hitRadius
+        );
+    }
+    BBox GetHitBoxLeft(){
+        BBox selfBox = getBBox();
+        return BBox(
+            selfBox.min.x - hitRadius,
+            selfBox.min.y,
+            selfBox.min.x + hitRadius,
+            selfBox.max.y
+        );
+    }
+    BBox GetHitBoxRight(){
+        BBox selfBox = getBBox();
+        return BBox(
+            selfBox.max.x - hitRadius,
+            selfBox.min.y,
+            selfBox.max.x + hitRadius,
+            selfBox.max.y
+        );
     }
 
     BBox getBBox()
