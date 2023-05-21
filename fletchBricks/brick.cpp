@@ -20,8 +20,13 @@ public:
         
         BBox ballBBox = ball.getBBox();
         BBox selfBBox = getBBox();
-        bool collision = ballBBox.Intersects(selfBBox);
-        if (collision) {
+
+        if (selfBBox.IntersectHorizontal(ballBBox)) {
+            ball.BounceVertical();
+            broken = true;
+        }
+        else if (selfBBox.IntersectVertical(ballBBox)) {
+            ball.BounceHorizontal();
             broken = true;
         }
     }

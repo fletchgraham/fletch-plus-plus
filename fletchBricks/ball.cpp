@@ -20,4 +20,12 @@ public:
             Vec2(pos + radius)
         );
     }
+
+    void BounceVertical() {
+        vel.y *= -1.0f;
+    }
+
+    void BounceHorizontal() {
+        vel.x *= -1.0f;
+    }
 };
