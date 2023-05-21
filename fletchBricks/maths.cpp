@@ -36,15 +36,12 @@ struct Vec2
 
 struct BBox
 {
-    BBox(Vec2 mMin, Vec2 mMax) : mMin(mMin), mMax(mMax) { }
-    Vec2 mMax;
-    Vec2 mMin;
+    BBox(Vec2 min, Vec2 max) : min(min), max(max) { }
+    Vec2 max;
+    Vec2 min;
 
     Vec2 Dimensions() {
-        dimensions = mMax - mMin;
-
-        // is this creating a new Vec2 every time? or returning 
-        // a reference to dimensions?
+        dimensions = max - min;
         return dimensions;
     }
 
@@ -85,12 +82,12 @@ struct BBox
 
     BBox IntersectionBox(BBox &other) {
         Vec2 newMin = Vec2(
-            std::max(mMin.x, other.mMin.x),
-            std::max(mMin.y, other.mMin.y)
+            std::max(min.x, other.min.x),
+            std::max(min.y, other.min.y)
         );
         Vec2 newMax = Vec2(
-            std::min(mMax.x, other.mMax.x),
-            std::min(mMax.y, other.mMax.y)
+            std::min(max.x, other.max.x),
+            std::min(max.y, other.max.y)
         );
         return BBox(newMin, newMax);
     }
@@ -98,10 +95,10 @@ struct BBox
     bool Intersects(BBox &other)
     {
         return (
-            other.mMin.x < mMin.x && mMin.x < other.mMax.x &&
-            other.mMin.y < mMin.y && mMin.y < other.mMax.y ||
-            other.mMin.x < mMax.x && mMax.x < other.mMax.x &&
-            other.mMin.y < mMax.y && mMax.y < other.mMax.y
+            other.min.x < min.x && min.x < other.max.x &&
+            other.min.y < min.y && min.y < other.max.y ||
+            other.min.x < max.x && max.x < other.max.x &&
+            other.min.y < max.y && max.y < other.max.y
         );
     }
 

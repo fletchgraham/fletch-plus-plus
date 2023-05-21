@@ -21,11 +21,11 @@ public:
         BBox ballBBox = ball.getBBox();
         BBox selfBBox = getBBox();
 
-        if (selfBBox.IntersectHorizontal(ballBBox)) {
+        if (selfBBox.IntersectVertical(ballBBox)) {
             ball.BounceVertical();
             broken = true;
         }
-        else if (selfBBox.IntersectVertical(ballBBox)) {
+        else if (selfBBox.IntersectHorizontal(ballBBox)) {
             ball.BounceHorizontal();
             broken = true;
         }

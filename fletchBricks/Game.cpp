@@ -76,6 +76,7 @@ bool Game::Initialize()
 	paddle.leftLimit = thickness;
 	paddle.rightLimit = windowWidth - thickness;
 
+	ball.radius = thickness / 2;
 	ball.pos.x = windowWidth/2.0f;
 	ball.pos.y = windowHeight/2.0f;
 	ball.vel.x = 235.0f;
