@@ -42,18 +42,18 @@ public:
     BBox GetHitBoxTop(){
         BBox selfBox = getBBox();
         return BBox(
-            selfBox.min.x - hitRadius,
+            selfBox.min.x,
             selfBox.max.y - hitRadius,
-            selfBox.max.x + hitRadius,
+            selfBox.max.x,
             selfBox.max.y + hitRadius
         );
     }
     BBox GetHitBoxBottom(){
         BBox selfBox = getBBox();
         return BBox(
-            selfBox.min.x - hitRadius,
+            selfBox.min.x,
             selfBox.min.y - hitRadius,
-            selfBox.max.x + hitRadius,
+            selfBox.max.x,
             selfBox.min.y + hitRadius
         );
     }

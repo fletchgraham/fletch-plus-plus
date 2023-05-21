@@ -64,7 +64,7 @@ bool Game::Initialize()
 	ball.radius = thickness / 2;
 	ball.pos.x = windowWidth/2.0f;
 	ball.pos.y = windowHeight/2.0f;
-	ball.vel.x = 235.0f;
+	ball.vel.x = 0.0f;
 	ball.vel.y = 200.0f;
 
 	float brickColumnGap = 10.0f;
