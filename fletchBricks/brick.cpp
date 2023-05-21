@@ -31,7 +31,7 @@ public:
             ball.BounceHorizontal();
             broken = true;
         }
-        else if (GetHitBoxRight().Contains(ball.pos) && ball.vel.y <= 0) {
+        else if (GetHitBoxRight().Contains(ball.pos) && ball.vel.x <= 0) {
             ball.BounceHorizontal();
             broken = true;
         }
