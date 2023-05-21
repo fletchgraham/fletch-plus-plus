@@ -28,6 +28,6 @@ private:
 	
 	Paddle paddle;
 	Ball ball;
-	Brick bricks[5];
+	Brick bricks[14];
 	int mouseX, mouseY;
 };

@@ -22,7 +22,7 @@ bool Game::Initialize()
 		return false;
 	}
     
-    windowWidth = 480;
+    windowWidth = 640;
     windowHeight = 480;
 	
 	// Create an SDL Window
@@ -67,21 +67,49 @@ bool Game::Initialize()
 	ball.vel.x = 0.0f;
 	ball.vel.y = 200.0f;
 
-	float brickColumnGap = 10.0f;
-
-	int numBricks = 5;
 	float courtWidth = windowWidth - thickness * 2;
-	float brickWidth = (courtWidth - brickColumnGap * (numBricks + 1)) / numBricks;
-	float firstBrickPos = thickness + brickColumnGap + brickWidth / 2;
+	float topEdge = thickness;
+	float leftEdge = thickness;
+	float brickGap = 20.0f;
+	int numRows = 3;
+	int maxBricksPerRow = 5;
 
-	int brickCounter = 0;
-	for (Brick &b : bricks) {
-		b.pos.x = firstBrickPos + brickCounter * (brickWidth + brickColumnGap);
-		b.pos.y = 200.0f;
-		b.w = brickWidth;
-		b.h = 50.0f;
-		b.hitRadius = ball.radius;
-		brickCounter += 1;
+	int numBricks;
+	int bricksInTwoRows = maxBricksPerRow * 2 - 1;
+
+	if (numRows % 2 == 0) {
+		numBricks = numRows / 2 * bricksInTwoRows;
+	} else {
+		numBricks = (numRows - 1) / 2 * bricksInTwoRows + maxBricksPerRow;
+	}
+
+	float brickWidth = (courtWidth - brickGap * (maxBricksPerRow + 1)) / maxBricksPerRow;
+	float brickHeight = 50.0f;
+
+	float startY = topEdge + brickGap + brickHeight / 2;
+	float startX = leftEdge + brickGap + brickWidth / 2;
+	int curBrickIndex = 0;
+	float nudge;
+	int bricksPerRow;
+	for (int rowIndex=0; rowIndex < numRows; rowIndex++) { 
+		nudge = 0;
+		bricksPerRow = maxBricksPerRow;
+		if (rowIndex % 2 != 0) { // odd
+			bricksPerRow = maxBricksPerRow - 1;
+			nudge = (brickWidth + brickGap) / 2;
+		}
+
+		for (int localBrickIndex = 0; localBrickIndex < bricksPerRow; localBrickIndex++) {
+			float posX = startX + nudge + localBrickIndex * (brickGap + brickWidth);
+			float posY = startY + rowIndex * (brickGap + brickHeight);
+
+			bricks[curBrickIndex].pos.x = posX;
+			bricks[curBrickIndex].pos.y = posY;
+			bricks[curBrickIndex].w = brickWidth;
+			bricks[curBrickIndex].h = brickHeight;
+			bricks[curBrickIndex].hitRadius = ball.radius;
+			curBrickIndex += 1;
+		}
 	}
 
 	return true;
@@ -147,8 +175,16 @@ void Game::UpdateGame()
 
 	paddle.HandleBall(ball);
 
+	bool allBroken = true;
 	for (Brick &b : bricks) {
 		b.HandleBall(ball);
+		if (!b.broken) {
+			allBroken = false;
+		}
+	}
+
+	if (allBroken) {
+		SDL_Log("YOU WIN!");
 	}
 
 	// Did the ball go off the screen? (if so, end game)
